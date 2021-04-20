@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="介绍vscode 项目中，对象基本都是通过依赖注入模式构造的。比如编辑器实例 CodeApplication 的 constructor 如下，所有被装饰的参数都是依赖注入项：如果你还不了解 TypeScript 装饰器，你可以先阅读官方文档。">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vscode中的依赖注入">
+<meta property="og:url" content="https://alanlang.github.io/archives/16210.html">
+<meta property="og:site_name" content="Alan&#39;s Blog">
+<meta property="og:description" content="介绍vscode 项目中，对象基本都是通过依赖注入模式构造的。比如编辑器实例 CodeApplication 的 constructor 如下，所有被装饰的参数都是依赖注入项：如果你还不了解 TypeScript 装饰器，你可以先阅读官方文档。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-09T03:01:45.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vscode中的依赖注入">
+<meta name="twitter:description" content="介绍vscode 项目中，对象基本都是通过依赖注入模式构造的。比如编辑器实例 CodeApplication 的 constructor 如下，所有被装饰的参数都是依赖注入项：如果你还不了解 TypeScript 装饰器，你可以先阅读官方文档。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://alanlang.github.io/archives/16210.html">
+
+
+
+
+
+  <title>vscode中的依赖注入 | Alan's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/AlanLang" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alan's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://alanlang.github.io/archives/16210.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alan's Blog">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vscode中的依赖注入</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T00:48:23+00:00">
+                2020-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/16210.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/archives/16210.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,995 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>vscode 项目中，对象基本都是通过依赖注入模式构造的。比如编辑器实例 <code>CodeApplication</code> 的 <a href="https://github.com/microsoft/vscode/blob/ff5f581425da6230b6f9216ecf19abf6c9d285a6/src/vs/code/electron-main/app.ts#L84" target="_blank" rel="noopener">constructor</a> 如下，所有被装饰的参数都是依赖注入项：<br>如果你还不了解 TypeScript 装饰器，你可以先阅读<a href="https://www.typescriptlang.org/docs/handbook/decorators.html" target="_blank" rel="noopener">官方文档</a>。<br><a id="more"></a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CodeApplication <span class="keyword">extends</span> Disposable &#123;</span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">		<span class="keyword">private</span> readonly mainIpcServer: Server,</span></span><br><span class="line"><span class="params">		<span class="keyword">private</span> readonly userEnv: IProcessEnvironment,</span></span><br><span class="line"><span class="params">		<span class="meta">@IInstantiationService</span> <span class="keyword">private</span> readonly instantiationService: IInstantiationService,</span></span><br><span class="line"><span class="params">		<span class="meta">@ILogService</span> <span class="keyword">private</span> readonly logService: ILogService,</span></span><br><span class="line"><span class="params">		<span class="meta">@IEnvironmentService</span> <span class="keyword">private</span> readonly environmentService: IEnvironmentService,</span></span><br><span class="line"><span class="params">		<span class="meta">@ILifecycleMainService</span> <span class="keyword">private</span> readonly lifecycleMainService: ILifecycleMainService,</span></span><br><span class="line"><span class="params">		<span class="meta">@IConfigurationService</span> <span class="keyword">private</span> readonly configurationService: IConfigurationService,</span></span><br><span class="line"><span class="params">		<span class="meta">@IStateService</span> <span class="keyword">private</span> readonly stateService: IStateService</span></span><br><span class="line"><span class="params">	</span>) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CodeMain 类将会在应用初始化的时候<a href="https://github.com/microsoft/vscode/blob/ff5f581425da6230b6f9216ecf19abf6c9d285a6/src/vs/code/electron-main/main.ts#L118-L128" target="_blank" rel="noopener">实例化该类</a>：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> instantiationService.invokeFunction(<span class="keyword">async</span> accessor =&gt; &#123;</span><br><span class="line">	<span class="comment">// 进行实例化，可以看到除了要被构造的类 CodeApplication 之外</span></span><br><span class="line">	<span class="comment">// 剩下参数的数目和 constructor 中未被装饰的参数的数目一致</span></span><br><span class="line">    <span class="keyword">const</span> environmentService = accessor.get(IEnvironmentService);</span><br><span class="line">    <span class="keyword">const</span> logService = accessor.get(ILogService);</span><br><span class="line">    <span class="keyword">const</span> lifecycleMainService = accessor.get(ILifecycleMainService);</span><br><span class="line">    <span class="keyword">const</span> configurationService = accessor.get(IConfigurationService);</span><br><span class="line">    <span class="keyword">const</span> mainIpcServer = <span class="keyword">await</span> <span class="keyword">this</span>.doStartup(logService, environmentService, lifecycleMainService, instantiationService, <span class="literal">true</span>);</span><br><span class="line">	<span class="keyword">return</span> instantiationService.createInstance(CodeApplication, mainIpcServer, instanceEnvironment).startup();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们提炼出在 vsocde 中使用依赖注入模式的三个要素：</p>
+<ul>
+<li>一个将要被实例化的类，在其构造函数中使用装饰器声明了需要注入的参数（依赖注入项）</li>
+<li>装饰器，是注入的参数的类型标识（indentifier）</li>
+<li>InstantiationService，提供方法实例化类，并且也是依赖注入项所存放的位置</li>
+</ul>
+<p>下面介绍一些实现细节。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><p>所有 identifier 均由 createDecorator 方法创建，比如 ILogService<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createDecorator <span class="keyword">as</span> createServiceDecorator &#125; <span class="keyword">from</span> <span class="string">'vs/platform/instantiation/common/instantiation'</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ILogService = createServiceDecorator&lt;ILogService&gt;(<span class="string">'logService'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>我们看这个文件中，不仅有变量声明：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ILogService = createServiceDecorator&lt;ILogService&gt;(<span class="string">'logService'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>同时也有类型声明：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> ILogService <span class="keyword">extends</span> ILogger &#123;</span><br><span class="line">	_serviceBrand: <span class="literal">undefined</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>TypeScript 允许同名的类型声明和变量声明，这就是为什么 ILogService 同时可以作为装饰器函数的名称和接口的名称。<br><a href="https://github.com/microsoft/vscode/blob/ff5f581425da6230b6f9216ecf19abf6c9d285a6/src/vs/platform/instantiation/common/instantiation.ts#L128-L128" target="_blank" rel="noopener">createDecorator</a>方法内容如下：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">storeServiceDependency</span>(<span class="params">id: <span class="built_in">Function</span>, target: <span class="built_in">Function</span>, index: <span class="built_in">number</span>, optional: <span class="built_in">boolean</span></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 在被装饰的类上记录一个依赖项</span></span><br><span class="line">	<span class="keyword">if</span> ((target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_TARGET] === target) &#123;</span><br><span class="line">		(target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_DEPENDENCIES].push(&#123; id, index, optional &#125;);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		(target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_DEPENDENCIES] = [&#123; id, index, optional &#125;];</span><br><span class="line">		(target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_TARGET] = target;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A *only* valid way to create a &#123;&#123;ServiceIdentifier&#125;&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createDecorator</span>&lt;<span class="title">T</span>&gt;(<span class="params">serviceId: <span class="built_in">string</span></span>): <span class="title">ServiceIdentifier</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 判断装饰器是否已在缓存中</span></span><br><span class="line">	<span class="keyword">if</span> (_util.serviceIds.has(serviceId)) &#123;</span><br><span class="line">		<span class="keyword">return</span> _util.serviceIds.get(serviceId)!;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 创建装饰器</span></span><br><span class="line">	<span class="keyword">const</span> id = &lt;<span class="built_in">any</span>&gt;<span class="function"><span class="keyword">function</span> (<span class="params">target: <span class="built_in">Function</span>, key: <span class="built_in">string</span>, index: <span class="built_in">number</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">arguments</span>.length !== <span class="number">3</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'@IServiceName-decorator can only be used to decorate a parameter'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		storeServiceDependency(id, target, index, <span class="literal">false</span>);</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	id.toString = <span class="function"><span class="params">()</span> =&gt;</span> serviceId;</span><br><span class="line"></span><br><span class="line">	_util.serviceIds.set(serviceId, id);</span><br><span class="line">	<span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到代码的核心是实现了一个装饰器函数<code>id</code>，在装饰器被应用的时候，它就会调用 storeServiceDependency 方法在被装饰的类（比如 CodeApplication）上记录依赖项，包括装饰器本身（id），参数的下标（index）以及是否可选（optional）。<br>当类<strong>声明</strong>的时候，装饰器就会被应用（可以通过一个<a href="https://stackblitz.com/edit/typescript-decorator-when-kaigic?file=index.ts" target="_blank" rel="noopener">demo</a>证明），所以在有类被实例化之前依赖关系就已经确定好了。</p>
+<h3 id="InstantiationService"><a href="#InstantiationService" class="headerlink" title="InstantiationService"></a>InstantiationService</h3><p><a href="https://github.com/microsoft/vscode/blob/ff5f581425da6230b6f9216ecf19abf6c9d285a6/src/vs/platform/instantiation/common/instantiationService.ts#L29-L29" target="_blank" rel="noopener">InstantiantionService</a> 用于提供依赖注入项，也就是起到依赖注入框架中的注入器（Injector）的功能，它以 identifier 为 key 在自身的 _services 属性中保存了各个依赖项的实例。</p>
+<p>它暴露了三个公开方法：</p>
+<ul>
+<li>createInstance，该方法接受一个类以及构造该类的非依赖注入参数，然后创建该类的实例。</li>
+<li>invokeFunction，该方法接受一个回调函数，该回调函数通过 acessor 参数可以访问该 InstantiationService 中的所有依赖注入项。</li>
+<li>createChild，该方法接受一个依赖项集合，并创造一个新的 InstantiationService，说明 vscode 的依赖注入机制也是有层次的。</li>
+</ul>
+<p>_createInstance 方法是实例化的核心方法：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> _createInstance&lt;T&gt;(ctor: <span class="built_in">any</span>, args: <span class="built_in">any</span>[] = [], _trace: Trace): T &#123;</span><br><span class="line">	<span class="comment">// arguments defined by service decorators</span></span><br><span class="line">	<span class="keyword">let</span> serviceDependencies = _util.getServiceDependencies(ctor).sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.index - b.index);</span><br><span class="line">	<span class="keyword">let</span> serviceArgs: <span class="built_in">any</span>[] = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> dependency of serviceDependencies) &#123;</span><br><span class="line">		<span class="keyword">let</span> service = <span class="keyword">this</span>._getOrCreateServiceInstance(dependency.id, _trace);</span><br><span class="line">		<span class="keyword">if</span> (!service &amp;&amp; <span class="keyword">this</span>._strict &amp;&amp; !dependency.optional) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`[createInstance] <span class="subst">$&#123;ctor.name&#125;</span> depends on UNKNOWN service <span class="subst">$&#123;dependency.id&#125;</span>.`</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		serviceArgs.push(service);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> firstServiceArgPos = serviceDependencies.length &gt; <span class="number">0</span> ? serviceDependencies[<span class="number">0</span>].index : args.length;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// check for argument mismatches, adjust static args if needed</span></span><br><span class="line">	<span class="keyword">if</span> (args.length !== firstServiceArgPos) &#123;</span><br><span class="line">		<span class="built_in">console</span>.warn(<span class="string">`[createInstance] First service dependency of <span class="subst">$&#123;ctor.name&#125;</span> at position <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">			firstServiceArgPos + <span class="number">1</span>&#125;</span> conflicts with <span class="subst">$&#123;args.length&#125;</span> static arguments`</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">let</span> delta = firstServiceArgPos - args.length;</span><br><span class="line">		<span class="keyword">if</span> (delta &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			args = args.concat(<span class="keyword">new</span> <span class="built_in">Array</span>(delta));</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			args = args.slice(<span class="number">0</span>, firstServiceArgPos);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// now create the instance</span></span><br><span class="line">	<span class="keyword">return</span> &lt;T&gt;<span class="keyword">new</span> ctor(...[...args, ...serviceArgs]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法首先通过<code>getServiceDependencies</code>获取被构造类的依赖，这里获取到的依赖就是我们在声明该类的时候就已经通过<code>storeServiceDependency</code>所注册的（见上文）。然后通过<code>_getOrCreateServiceInstance</code>根据方法<code>indentifer</code>拿到<code>_services</code>中注册的依赖项，如果拿不到的话就构建一个（我们先假设我们总是能拿到所需要的依赖注册项，需要现场构建的情形我们会在后面的小节中说明），拿到的依赖项会被<code>push</code>到<code>serviceArgs</code>数组当中。然后会进行<code>constructor</code>参数处理。总而言之，<code>args</code>数组的长度应该满足被构造的类声明的非注入参数的数量，这样才能确保依赖注入的参数和非依赖注入的参数都能被送到构造函数中正确的顺序上。<br>最后用实例化目标类。</p>
+<h3 id="依赖项不存在的情形"><a href="#依赖项不存在的情形" class="headerlink" title="依赖项不存在的情形"></a>依赖项不存在的情形</h3><p>我们先前提到在调用<code>_getOrCreateServiceInstance</code>时可能会拿不到依赖注入项而需要现场构建一个，下面是具体的实现过程。<br>首先会调用<code>_getServiceInstanceOrDescriptor</code>尝试拿到已经注册的实例，或者是一个<code>SyncDescriptor</code>对象。<code>SyncDescriptor</code>是什么东西呢，它其实就是封装了实例构造参数的一个数据对象，包括以下属性：</p>
+<ul>
+<li>ctor 将要被构造的类</li>
+<li>staticArguments 被传入这个类的参数，和上文中的 args 意义相同</li>
+<li>supportsDelayedInstantiation 是否支持延迟实例化<br>使用起来就像这样：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">services.set(ILifecycleMainService, <span class="keyword">new</span> SyncDescriptor(LifecycleMainService));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>表示的其实就是 <strong>不立刻实例化这个类，而当需要被注入的时候再进行实例化</strong>。<br>拿到了<code>SyncDescriptor</code>之后，会通过<a href="https://github.com/microsoft/vscode/blob/ff5f581425da6230b6f9216ecf19abf6c9d285a6/src/vs/platform/instantiation/common/instantiationService.ts#L149-L149" target="_blank" rel="noopener">_createAndCacheServiceInstance</a> 方法先实例化这个依赖项，它的代码如下：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> _createAndCacheServiceInstance&lt;T&gt;(id: ServiceIdentifier&lt;T&gt;, desc: SyncDescriptor&lt;T&gt;, _trace: Trace): T &#123;</span><br><span class="line">    <span class="keyword">type</span> Triple = &#123; id: ServiceIdentifier&lt;<span class="built_in">any</span>&gt;, desc: SyncDescriptor&lt;<span class="built_in">any</span>&gt;, _trace: Trace &#125;;</span><br><span class="line">    <span class="keyword">const</span> graph = <span class="keyword">new</span> Graph&lt;Triple&gt;(<span class="function"><span class="params">data</span> =&gt;</span> data.id.toString());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> cycleCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> stack = [&#123; id, desc, _trace &#125;];</span><br><span class="line">    <span class="keyword">while</span> (stack.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> item = stack.pop()!;</span><br><span class="line">        graph.lookupOrInsertNode(item);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// a weak but working heuristic for cycle checks</span></span><br><span class="line">        <span class="keyword">if</span> (cycleCount++ &gt; <span class="number">150</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CyclicDependencyError(graph);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// check all dependencies for existence and if they need to be created first</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> dependency of _util.getServiceDependencies(item.desc.ctor)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> instanceOrDesc = <span class="keyword">this</span>._getServiceInstanceOrDescriptor(dependency.id);</span><br><span class="line">            <span class="keyword">if</span> (!instanceOrDesc &amp;&amp; !dependency.optional) &#123;</span><br><span class="line">                <span class="built_in">console</span>.warn(<span class="string">`[createInstance] <span class="subst">$&#123;id&#125;</span> depends on <span class="subst">$&#123;dependency.id&#125;</span> which is NOT registered.`</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (instanceOrDesc <span class="keyword">instanceof</span> SyncDescriptor) &#123;</span><br><span class="line">                <span class="keyword">const</span> d = &#123; id: dependency.id, desc: instanceOrDesc, _trace: item._trace.branch(dependency.id, <span class="literal">true</span>) &#125;;</span><br><span class="line">                graph.insertEdge(item, d);</span><br><span class="line">                stack.push(d);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> roots = graph.roots();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// if there is no more roots but still</span></span><br><span class="line">        <span class="comment">// nodes in the graph we have a cycle</span></span><br><span class="line">        <span class="keyword">if</span> (roots.length === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!graph.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> CyclicDependencyError(graph);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> &#123; data &#125; of roots) &#123;</span><br><span class="line">            <span class="comment">// create instance and overwrite the service collections</span></span><br><span class="line">            <span class="keyword">const</span> instance = <span class="keyword">this</span>._createServiceInstanceWithOwner(data.id, data.desc.ctor, data.desc.staticArguments, data.desc.supportsDelayedInstantiation, data._trace);</span><br><span class="line">            <span class="keyword">this</span>._setServiceInstance(data.id, instance);</span><br><span class="line">            graph.removeNode(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &lt;T&gt;<span class="keyword">this</span>._getServiceInstanceOrDescriptor(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里有两个 while，分别做了以下这几件事情：</p>
+<ul>
+<li>第一个 while 是利用 DFS 的方法，找到一个类的所有未实例化的依赖（还是基于 SyncDescriptor），以及依赖的未实例化的依赖……最终得到一个依赖树</li>
+<li>第二个 while 根据前一步得到的依赖树，从根节点开始构造实例<br>最后我们就得到了我们最初想要的依赖。<h3 id="全局单例依赖注入"><a href="#全局单例依赖注入" class="headerlink" title="全局单例依赖注入"></a>全局单例依赖注入</h3>在 vscode 中，有的依赖是全局唯一、单例的，即在 JavaScript 线程中该类最多只有一个实例（这在 render process 中用得非常多）。vscode 提供了一个简单的机制实现全局单例依赖。<br>比方说我们想要创建一个单例的生命周期依赖，就这样做：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registerSingleton(ILifecycleService, BrowserLifecycleService);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>即调用 registerSingleton 方法，将 identifier 和具体的实现类绑定即可。<br>而<code>registerSingleton</code>的实现也异常简单，仅仅是在一个数组中保存一条记录。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _registry: [ServiceIdentifier&lt;<span class="built_in">any</span>&gt;, SyncDescriptor&lt;<span class="built_in">any</span>&gt;][] = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">registerSingleton</span>&lt;<span class="title">T</span>, <span class="title">Services</span> <span class="title">extends</span> <span class="title">BrandedService</span>[]&gt;(<span class="params">id: ServiceIdentifier&lt;T&gt;, ctor: &#123; <span class="keyword">new</span>(...services: Services): T &#125;, supportsDelayedInstantiation?: <span class="built_in">boolean</span></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">	_registry.push([id, <span class="keyword">new</span> SyncDescriptor&lt;T&gt;(ctor, [], supportsDelayedInstantiation)]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getSingletonServiceDescriptors</span>(<span class="params"></span>): [<span class="title">ServiceIdentifier</span>&lt;<span class="title">any</span>&gt;, <span class="title">SyncDescriptor</span>&lt;<span class="title">any</span>&gt;][] </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _registry;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在需要用到这些依赖注入项的时候，调用 getSingletonServiceDescriptor 获取这个数组就好。<br>所以从本质上来说，全局单例依赖注入其实就是把所有的依赖注入项保存在一个全局变量里。</p>
+<h3 id="可选依赖"><a href="#可选依赖" class="headerlink" title="可选依赖"></a>可选依赖</h3><p>有时候我们想让一个依赖是可选的，即允许依赖不存在。对此 vscode 提供了 optional 方法用于标记可选依赖。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">optional</span>&lt;<span class="title">T</span>&gt;(<span class="params">serviceIdentifier: ServiceIdentifier&lt;T&gt;</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target: <span class="built_in">Function</span>, key: <span class="built_in">string</span>, index: <span class="built_in">number</span></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">arguments</span>.length !== <span class="number">3</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'@optional-decorator can only be used to decorate a parameter'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		storeServiceDependency(serviceIdentifier, target, index, <span class="literal">true</span>);</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可见它与<code>createDecorator</code>方法的主要区别在于在调用<code>storeServiceDependency</code>的时候第四个参数为<code>true</code>。这样当获取不到<code>serviceIdentifier</code>所对应的依赖项时<code>InstantiationService</code>能够允许这样的情况而不是抛出错误。</p>
+<h3 id="延迟实例化"><a href="#延迟实例化" class="headerlink" title="延迟实例化"></a>延迟实例化</h3><p>在上文中，我们看到<code>SyncDecriptor</code>可以被当作依赖项实例的占位符使用，从而做到在需要依赖它的类被实例化的时候，再进行自身的实例化，即延迟实例化。另外，它还能把实例化过程进一步延迟到访问实例的属性和方法的时候！我们来看看这是如何实现的。<br>当创建一个<code>SyncDescriptor</code>的时候我们可以传参<code>supportsDelayedInstantiation = true</code>，比如这里：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registerSingleton(IExtensionGalleryService, ExtensionGalleryService, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这样在调用<code>_createServiceInstance</code>的时候就会进入<code>else</code>分支。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Return a proxy object that's backed by an idle value. That</span></span><br><span class="line"><span class="comment">// strategy is to instantiate services in our idle time or when actually</span></span><br><span class="line"><span class="comment">// needed but not when injected into a consumer</span></span><br><span class="line"><span class="keyword">const</span> idle = <span class="keyword">new</span> IdleValue&lt;<span class="built_in">any</span>&gt;<span class="function">(<span class="params">(<span class="params"></span>) =&gt; <span class="keyword">this</span>._createInstance&lt;T&gt;(<span class="params">ctor, args, _trace</span>)</span>);</span></span><br><span class="line"><span class="function"><span class="params">return</span> &lt;<span class="params">T</span>&gt;<span class="params">new</span> <span class="params">Proxy</span>(<span class="params"><span class="built_in">Object</span>.create(<span class="params"><span class="literal">null</span></span>), &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">get</span>(<span class="params">target: <span class="built_in">any</span>, key: PropertyKey</span>): <span class="built_in">any</span> &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">if</span> (<span class="params">key <span class="keyword">in</span> target</span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">return</span> target[key];</span></span></span><br><span class="line"><span class="function"><span class="params">        &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">let</span> obj = idle.getValue(<span class="params"></span>);</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">let</span> prop = obj[key];</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">if</span> (<span class="params"><span class="keyword">typeof</span> prop !== '<span class="keyword">function</span>'</span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">return</span> prop;</span></span></span><br><span class="line"><span class="function"><span class="params">        &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">        prop = prop.bind(<span class="params">obj</span>);</span></span></span><br><span class="line"><span class="function"><span class="params">        target[key] = prop;</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">return</span> prop;</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">set</span>(<span class="params">_target: T, p: PropertyKey, value: <span class="built_in">any</span></span>): <span class="built_in">boolean</span> &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">        idle.getValue(<span class="params"></span>)[p] = value;</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">return</span> <span class="literal">true</span>;</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>);</span></span><br></pre></td></tr></table></figure></p>
+<p>原理是用一个 Proxy 代替实例返回，当需要用到实例上的属性或方法时，再调用<code>this._createInstance</code>方法（通过闭包来保存参数）。这里用到了一种被称为<code>Idle Until Urgent</code>的模式。</p>
+<h3 id="InstantiationService-的那些方法"><a href="#InstantiationService-的那些方法" class="headerlink" title="InstantiationService 的那些方法"></a>InstantiationService 的那些方法</h3><p><code>InstatiationService</code> 这个类有很多方法，而且名字都很接近，这里列一个梗概，方便大家阅读源码：</p>
+<ul>
+<li>createChild 创建一个子 InstantiationService</li>
+<li>invokeFunction 执行一个函数，该函数可以通过 accessor 访问 InstantiationService 里存储的服务</li>
+<li>createInstance 创建一个服务</li>
+<li>_createInstance 实例化的最终方法，new 调用的位置</li>
+<li>_setServiceInstance 将一个创建好的 service set 到保存了对应的 identifier 的 InstantiationService 当中</li>
+<li>_getServiceInstaneOrDescriptor 根据 identifier 从某个 InstantiationService 中拿到服务实例或者 SyncDescriptor</li>
+<li>_getOrCreateServiceInstance 被 invokeFunction 所调用，会尝试调用 _getServiceInstanceOrDescriptor 拿到服务实例，如果拿到的是一个 SyncDescriptor，则走 _createAndCacheServiceInstance</li>
+<li>_createAndCacheServiceInstance 这里根据“要被创建的服务”的“未被实例化的依赖”来构建依赖树，然后依次构建这些未被实例化的依赖</li>
+<li>_createServiceInstanceWithOwner 寻找保存了对应的 identifier 的 InstantiationService ，调用它的 _createServiceInstance 方法进行实例化</li>
+<li>_createServiceInstance 这里处理延迟实例化逻辑，调用 _createInstance 的时候，所有依赖应该都已经被实例化，而不是 SyncDescriptor<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>vscode 自己实现了一套依赖注入机制，并没有依赖 reflect-metadata<br>InstantiationService 是实现依赖注入的核心<br>用装饰器来声明依赖关系<br>允许可选依赖<br>允许延迟实例化<br>支持多层依赖注入</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-github-alt"></i> 感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/23494.html" rel="next" title="Kodi使用技巧">
+                <i class="fa fa-chevron-left"></i> Kodi使用技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/40517.html" rel="prev" title="小程序架构">
+                小程序架构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+                <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Alan's Blog">
+            
+              <p class="site-author-name" itemprop="name">Alan's Blog</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，除了帅气与智慧什么都没有留下。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AlanLang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="langwdalan@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/langwdalan/?hl=en" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lucifer.ren/automate-everything/#/" title="我的第一本书" target="_blank">我的第一本书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hcysun.me/vue-design/zh/" title="渲染器" target="_blank">渲染器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hyf.js.org/react-naive-book/" title="React小书" target="_blank">React小书</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">2.1.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InstantiationService"><span class="nav-number">2.2.</span> <span class="nav-text">InstantiationService</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖项不存在的情形"><span class="nav-number">2.3.</span> <span class="nav-text">依赖项不存在的情形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局单例依赖注入"><span class="nav-number">2.4.</span> <span class="nav-text">全局单例依赖注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选依赖"><span class="nav-number">2.5.</span> <span class="nav-text">可选依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延迟实例化"><span class="nav-number">2.6.</span> <span class="nav-text">延迟实例化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InstantiationService-的那些方法"><span class="nav-number">2.7.</span> <span class="nav-text">InstantiationService 的那些方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alan's Blog</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'alanlang',
+            repo: 'alanlang.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '8f43dc3c2fe8423e880a160aad9baaeb0b65aa97',
+            
+                client_id: '87fc2d6fd2ba0dd1ca40'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hibiki.model.json"},"display":{"position":"left","width":100,"height":230},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

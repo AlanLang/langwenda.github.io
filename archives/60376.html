@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="英文翻译,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用React一年以来给我带来的最大收获原文链接：The most important lessons I’ve learned after a year of working with React原文作者：Tomas Eglinskas   涉猎一项新技术是一件十分麻烦的事情，你会时常发现你陷入了教程和文章的海洋中，伴随着数以百万计的个人观点，而且每个人都自诩找到了”正确而又完美的道路“。这会让">
+<meta name="keywords" content="英文翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用React一年以来给我带来的最大收获[英文翻译]">
+<meta property="og:url" content="https://alanlang.github.io/archives/60376.html">
+<meta property="og:site_name" content="Alan&#39;s Blog">
+<meta property="og:description" content="使用React一年以来给我带来的最大收获原文链接：The most important lessons I’ve learned after a year of working with React原文作者：Tomas Eglinskas   涉猎一项新技术是一件十分麻烦的事情，你会时常发现你陷入了教程和文章的海洋中，伴随着数以百万计的个人观点，而且每个人都自诩找到了”正确而又完美的道路“。这会让">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1250/1*TheYckj9udF4qLjoJW8sjg.png">
+<meta property="og:updated_time" content="2020-03-09T03:01:45.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用React一年以来给我带来的最大收获[英文翻译]">
+<meta name="twitter:description" content="使用React一年以来给我带来的最大收获原文链接：The most important lessons I’ve learned after a year of working with React原文作者：Tomas Eglinskas   涉猎一项新技术是一件十分麻烦的事情，你会时常发现你陷入了教程和文章的海洋中，伴随着数以百万计的个人观点，而且每个人都自诩找到了”正确而又完美的道路“。这会让">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1250/1*TheYckj9udF4qLjoJW8sjg.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://alanlang.github.io/archives/60376.html">
+
+
+
+
+
+  <title>使用React一年以来给我带来的最大收获[英文翻译] | Alan's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/AlanLang" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alan's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://alanlang.github.io/archives/60376.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alan's Blog">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用React一年以来给我带来的最大收获[英文翻译]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-22T07:07:00+00:00">
+                2018-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/英文翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">英文翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/60376.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/archives/60376.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,435 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="使用React一年以来给我带来的最大收获"><a href="#使用React一年以来给我带来的最大收获" class="headerlink" title="使用React一年以来给我带来的最大收获"></a>使用React一年以来给我带来的最大收获</h2><p>原文链接：<a href="https://medium.freecodecamp.org/mindset-lessons-from-a-year-with-react-1de862421981" target="_blank" rel="noopener">The most important lessons I’ve learned after a year of working with React</a><br>原文作者：<a href="https://medium.freecodecamp.org/@tomas.eglinskas?source=post_header_lockup" target="_blank" rel="noopener">Tomas Eglinskas</a></p>
+<hr>
+<p><img src="https://cdn-images-1.medium.com/max/1250/1*TheYckj9udF4qLjoJW8sjg.png" alt="这并不是我写的, 但是我知道它肯定引起了你的注意 🔪"></p>
+<p>涉猎一项新技术是一件十分麻烦的事情，你会时常发现你陷入了教程和文章的海洋中，伴随着数以百万计的个人观点，而且每个人都自诩找到了”<strong>正确而又完美的道路</strong>“。这会让我们迷惑的担心我们所选择的教程是否会浪费时间。所以在”陷入海洋”之前，我们必须要了解技术的基本概念，然后我们需要去建立以技术为基础的思维方式。如果我们开始去学习<code>React</code>,我们首先要做的就是用<code>React</code>的思想去思考，只有这样我们以后才能将各种心态融为一体。<br>在本文中，我将介绍给大家我从我个人使用<code>React</code>的经历中总经的经验教训，其中包括白天的工作、晚上的个人项目甚至还有在本地<code>js</code>活动中发表的演讲。<br>所以，让我们开始吧。<br><a id="more"></a></p>
+<h3 id="React正在迅速发展，所以你也要跟上时代的脚步"><a href="#React正在迅速发展，所以你也要跟上时代的脚步" class="headerlink" title="React正在迅速发展，所以你也要跟上时代的脚步"></a>React正在迅速发展，所以你也要跟上时代的脚步</h3><p>如果你还记得<code>16.3.0</code>版本的最初公告，那你一定还记得当时人们是多么兴奋。<br>下面是我们得到的一些变化和改进：</p>
+<ul>
+<li>官方的<code>context api</code></li>
+<li><code>createRef Api</code></li>
+<li><code>forwardRef Api</code></li>
+<li>严格模式</li>
+<li>组件生命周期变化</li>
+</ul>
+<p><code>React</code>小组和所有贡献者都在为了改进我们钟爱的技术而努力着，在<code>16.4.0</code>的版本中，我们获得了<a href="https://reactjs.org/blog/2018/05/23/react-v-16-4.html" target="_blank" rel="noopener">Pointer Events</a>.异步渲染、缓存、版本<code>17.0.0</code>以及好多尚未知晓的内容接下来肯定也会有进一步的更新，只不过是时间的问题。所以如果你想技术领先，就必须第一时间了解社区中发生的事情。了解事物是如何运作的以及它们为何被开发出来。 了解正在解决的问题以及如何使开发更容易。 这些会对你帮助很大。</p>
+<h3 id="不要害怕将你的代码分割成小的片段"><a href="#不要害怕将你的代码分割成小的片段" class="headerlink" title="不要害怕将你的代码分割成小的片段"></a>不要害怕将你的代码分割成小的片段</h3><p><code>React</code>是基于组件的，所以你需要利用这个概念而不是害怕把大的部分分割成小的部分。有时候一个简单的组件只有4-5行代码组成，并且在某种情况下，这完全没问题。这样做的好处就是如果有新人进来，不需要多久他就可以对整个系统了然于胸。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是多么容易令人理解</span></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  [</span><br><span class="line">   &lt;ChangeButton</span><br><span class="line">    onClick=&#123;<span class="keyword">this</span>.changeUserApprovalStatus&#125;</span><br><span class="line">    text=<span class="string">"Let’s switch it!"</span></span><br><span class="line">   /&gt;,</span><br><span class="line">   &lt;UserInformation status=&#123;status&#125;/&gt; </span><br><span class="line">  ]</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>你不必开发含有复杂逻辑的组件，他们可以只是视图组件，如果这样可以提高代码的可读性和可测试性，并且进一步减少代码异味，那么对团队的每个人来说这都是一场巨大的胜利。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ErrorMessage <span class="keyword">from</span> <span class="string">'./ErrorMessage'</span>;</span><br><span class="line"><span class="keyword">const</span> NotFound = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;ErrorMessage</span><br><span class="line">    title=<span class="string">"Oops! Page not found."</span></span><br><span class="line">    message=<span class="string">"The page you are looking for does not exist!"</span></span><br><span class="line">    className=<span class="string">"test_404-page"</span></span><br><span class="line">  /&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>正如上面这个例子，属性是不变的，所以我们可以把这个只用来显示错误信息<code>Not Found</code>的页面做成一个纯组件，仅此而已。<br>另外，如果您不喜欢在任何地方都使用CSS类作为类名，我建议使用样式化组件。 这可以提高可读性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const Number = styled.h1`</span><br><span class="line">  font-size: 36px;</span><br><span class="line">  line-height: 40px;</span><br><span class="line">  margin-right: 5px;</span><br><span class="line">  padding: 0px;</span><br><span class="line">`;</span><br><span class="line">//..</span><br><span class="line">&lt;Container&gt;</span><br><span class="line">  &lt;Number&gt;&#123;skipRatePre&#125;&lt;/Number&gt;</span><br><span class="line">  &lt;InfoName&gt;Skip Rate&lt;/InfoName&gt;</span><br><span class="line">&lt;/Container&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果你是因为担心污染文件夹而害怕创建更多的组件，请重新考虑如何构建代码。 我一直在使用<a href="https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af" target="_blank" rel="noopener">分形结构</a>，它很棒。</p>
+<h3 id="不要因循守旧-要变得先进"><a href="#不要因循守旧-要变得先进" class="headerlink" title="不要因循守旧-要变得先进"></a>不要因循守旧-要变得先进</h3><p>有时候你可能会认为你所了解的东西太欠缺还不足以让你去了解更高级的东西，但是通常你不应该担心太多，请接收挑战并证明之前自己是错的。通过掌握高级技巧并推动自己，你将会了解更多基础知识以及如果讲他们用于更大的事情。下面是你可以去探索的一些模式：</p>
+<ul>
+<li>复合组件</li>
+<li>高阶组件</li>
+<li><code>Render Props</code></li>
+<li><code>Smart</code>和<code>Dumb1</code>组件</li>
+<li>还有许多其他的(尝试分析)<br>弄懂了这些，你就会知道他们在何处使用以及使用他们的原因，你会对<code>React</code>用起来感觉更舒服。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 像是魔法？</span><br><span class="line">// 如果你真的尝试了就会发现其实没有你想象中那么复杂</span><br><span class="line">render() &#123;</span><br><span class="line">  const children = React.Children.map(this.props.children,</span><br><span class="line">   (child, index) =&gt; &#123;</span><br><span class="line">      return React.cloneElement(child, &#123;</span><br><span class="line">        onSelect: () =&gt; this.props.onTabSelect(index)</span><br><span class="line">    &#125;);    </span><br><span class="line"> &#125;);  </span><br><span class="line"> return children;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>另外，不要害怕在工作中尝试新的事物，当然是在某些范围内，不要只是在个人项目中实验。人们会问问题，这是十分正常的事情，你的责任就是用强有力的争吵来捍卫你的工作和决定。你的目标应该是解决现有问题，进一步开发或者只是清理代码，你是你被拒绝了，相对于沉默而言你也会收获更多。</p>
+<h3 id="不要让事情变得过度复杂"><a href="#不要让事情变得过度复杂" class="headerlink" title="不要让事情变得过度复杂"></a>不要让事情变得过度复杂</h3><p>这个听起来像和之前的观点矛盾了，但是并不是这样，在生活中，或者在任何地方，我们必须保持中庸，不要过度炫耀工作，我们必须务实，让代码变得更加容易理解才是我们的目的。如果你并不需要<code>Redux</code>，你使用它的原因只是因为每个人都在使用它而并不知道它的真正作用，请不要这样，请保持主见并且不要被别人影响到。有些时候你可能认为利用最新技术并编写复杂的代码这样你就可以对全世界说:”看，我不是初级工程师，我正在成为高级工程师，看看我能做些什么！”。实话实说，这是我刚开始编程时的心态，但是随着时间的推移你将会理解编写的代码相对于炫耀来说，真正起作用的才更容易被人接受。</p>
+<ol>
+<li>同事可以处理你的项目，并且你不是唯一负责开发/修复/测试&lt;等等&gt;的人。</li>
+<li>团队之间不需要长时间的会议就能理解别人做的事情，几分钟的讨论就够了。</li>
+<li>当你的同事出去度假两周时，你来接手他的任务，而且你并不需要因此工作8个小时，因为一个小时就够了。<br>人们会尊重那些让别人生活更轻松的人。 因此，如果你的目标是获得尊重，提升排名并进行改进，则需要为团队而不是自己编写代码。<br>你将成为每个人最喜欢的团队成员。</li>
+</ol>
+<h3 id="重构，重构然后重构—这是再正常不过的"><a href="#重构，重构然后重构—这是再正常不过的" class="headerlink" title="重构，重构然后重构—这是再正常不过的"></a>重构，重构然后重构—这是再正常不过的</h3><p>你会十几次得改变你的想法，尽管你的项目经理修改需求会更加频繁，其他人会批评你的工作，你也会批评你自己，结果是你需要一遍一遍得修改代码。但是不要担心，这是一个自然的学习过程，没有错误和异常，我们就无法提升。我们跌倒的次数越多，恢复起来就越容易。但是这里有一个提示，确保你测试的是当前的代码，烟雾，单位，整合，快照 - 不要对他们感到害怕。当测试可以解决很多宝贵时间时每个人都会遇到或者都将会遇到一个问题，如果你像其他人一样认为这会浪费很多时间，请试着思考一下：</p>
+<ol>
+<li>不必和你的同事一起解释事情是如何运作的。</li>
+<li>你不必和你的同事一起解释为什么事情会崩溃。</li>
+<li>您不必为您的同事修复错误。</li>
+<li>您将不必修复3周后发现的错误。</li>
+<li>你将有时间做你想要的东西。<br>这些都是有非常大的好处。</li>
+</ol>
+<h3 id="如果你喜欢它，你将会茁壮成长"><a href="#如果你喜欢它，你将会茁壮成长" class="headerlink" title="如果你喜欢它，你将会茁壮成长"></a>如果你喜欢它，你将会茁壮成长</h3><p>在过去的一年里，我的目标是在React上做得更好。所以我想谈谈它。我希望别人和我一起享受。我可以不停地坐着整夜编码，看着各种各样的谈话，享受它的每一分钟。事实就是，如果你想要什么，不知为何，每个人都开始帮助你。上个月，我向一群200人发表了我的第一次React演讲。在这一年期间，我通过各种模式，范例和内部运作和<code>React</code>相处起来变得更强大，更舒服。我可以进行高级讨论并向其他人讲授我不敢触及的话题。而今天我仍然感受到一年前我所感受到的同样的兴奋和享受。所以我建议每个人都问自己：”你喜欢你现在做的事情吗？”如果没有，继续寻找你可以谈论几个小时的特殊事情，每晚了解，并为之开心。因为我们必须找到最接近我们心灵的东西。成功不可强求，但是可以实现。如果我可以回到一年前的时间，这些正是我要对即将踏上学习的旅程的我所说的话。<br>谢谢你的阅读！<br>如果你发现这篇文章很有帮助，👏👏👏.</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-github-alt"></i> 感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/英文翻译/" rel="tag"><i class="fa fa-tag"></i> 英文翻译</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/30325.html" rel="next" title="如何像程序员一样思考[英文翻译]">
+                <i class="fa fa-chevron-left"></i> 如何像程序员一样思考[英文翻译]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/59040.html" rel="prev" title="wsl配置开机启动">
+                wsl配置开机启动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+                <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Alan's Blog">
+            
+              <p class="site-author-name" itemprop="name">Alan's Blog</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，除了帅气与智慧什么都没有留下。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AlanLang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="langwdalan@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/langwdalan/?hl=en" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lucifer.ren/automate-everything/#/" title="我的第一本书" target="_blank">我的第一本书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hcysun.me/vue-design/zh/" title="渲染器" target="_blank">渲染器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hyf.js.org/react-naive-book/" title="React小书" target="_blank">React小书</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用React一年以来给我带来的最大收获"><span class="nav-number">1.</span> <span class="nav-text">使用React一年以来给我带来的最大收获</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React正在迅速发展，所以你也要跟上时代的脚步"><span class="nav-number">1.1.</span> <span class="nav-text">React正在迅速发展，所以你也要跟上时代的脚步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要害怕将你的代码分割成小的片段"><span class="nav-number">1.2.</span> <span class="nav-text">不要害怕将你的代码分割成小的片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要因循守旧-要变得先进"><span class="nav-number">1.3.</span> <span class="nav-text">不要因循守旧-要变得先进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要让事情变得过度复杂"><span class="nav-number">1.4.</span> <span class="nav-text">不要让事情变得过度复杂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构，重构然后重构—这是再正常不过的"><span class="nav-number">1.5.</span> <span class="nav-text">重构，重构然后重构—这是再正常不过的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果你喜欢它，你将会茁壮成长"><span class="nav-number">1.6.</span> <span class="nav-text">如果你喜欢它，你将会茁壮成长</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alan's Blog</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'alanlang',
+            repo: 'alanlang.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '8f43dc3c2fe8423e880a160aad9baaeb0b65aa97',
+            
+                client_id: '87fc2d6fd2ba0dd1ca40'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hibiki.model.json"},"display":{"position":"left","width":100,"height":230},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

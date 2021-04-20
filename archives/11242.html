@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="瞎折腾,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="EFI文件 配置清单   硬件配置 选型     CPU i7 9700k   主板 华擎 Z390 Phantom Gaming-ITX AC   显卡 蓝宝石RX560 + 显卡延长线   内存条 芝奇幻光戟16G * 1   硬盘 WD/西部数据 SN550系列500G SSD   电源 全汉MS600 铜牌全模组+定制线   无线网卡 博通DW1560 (可以直接替换主板上的)   散热">
+<meta name="keywords" content="瞎折腾">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCore安装黑苹果">
+<meta property="og:url" content="https://alanlang.github.io/archives/11242.html">
+<meta property="og:site_name" content="Alan&#39;s Blog">
+<meta property="og:description" content="EFI文件 配置清单   硬件配置 选型     CPU i7 9700k   主板 华擎 Z390 Phantom Gaming-ITX AC   显卡 蓝宝石RX560 + 显卡延长线   内存条 芝奇幻光戟16G * 1   硬盘 WD/西部数据 SN550系列500G SSD   电源 全汉MS600 铜牌全模组+定制线   无线网卡 博通DW1560 (可以直接替换主板上的)   散热">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://alan-picpack.oss-cn-hangzhou.aliyuncs.com/uPic/20210420/20210420111333@2x.png">
+<meta property="og:updated_time" content="2021-04-20T03:31:38.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenCore安装黑苹果">
+<meta name="twitter:description" content="EFI文件 配置清单   硬件配置 选型     CPU i7 9700k   主板 华擎 Z390 Phantom Gaming-ITX AC   显卡 蓝宝石RX560 + 显卡延长线   内存条 芝奇幻光戟16G * 1   硬盘 WD/西部数据 SN550系列500G SSD   电源 全汉MS600 铜牌全模组+定制线   无线网卡 博通DW1560 (可以直接替换主板上的)   散热">
+<meta name="twitter:image" content="https://alan-picpack.oss-cn-hangzhou.aliyuncs.com/uPic/20210420/20210420111333@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://alanlang.github.io/archives/11242.html">
+
+
+
+
+
+  <title>OpenCore安装黑苹果 | Alan's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/AlanLang" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alan's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://alanlang.github.io/archives/11242.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alan's Blog">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenCore安装黑苹果</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-11T09:49:23+00:00">
+                2020-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/瞎折腾/" itemprop="url" rel="index">
+                    <span itemprop="name">瞎折腾</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/11242.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/archives/11242.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,061 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/AlanLang/ASRock-Z390-Phantom-Gaming-ITXac-OpenCore-Hackintosh" target="_blank" rel="noopener">EFI文件</a></p>
+<h2 id="配置清单"><a href="#配置清单" class="headerlink" title="配置清单"></a>配置清单</h2><table>
+<thead>
+<tr>
+<th>硬件配置</th>
+<th>选型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>i7 9700k</td>
+</tr>
+<tr>
+<td>主板</td>
+<td>华擎 Z390 Phantom Gaming-ITX AC</td>
+</tr>
+<tr>
+<td>显卡</td>
+<td>蓝宝石RX560 + 显卡延长线</td>
+</tr>
+<tr>
+<td>内存条</td>
+<td>芝奇幻光戟16G * 1</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td>WD/西部数据 SN550系列500G SSD</td>
+</tr>
+<tr>
+<td>电源</td>
+<td>全汉MS600 铜牌全模组+定制线</td>
+</tr>
+<tr>
+<td>无线网卡</td>
+<td>博通DW1560 (可以直接替换主板上的)</td>
+</tr>
+<tr>
+<td>散热</td>
+<td>乔思伯240水冷</td>
+</tr>
+<tr>
+<td>机箱</td>
+<td>定制的A4机箱</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="BIOS设置"><a href="#BIOS设置" class="headerlink" title="BIOS设置"></a>BIOS设置</h2><p>禁用如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">英文</th>
+<th style="text-align:left">中文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Fast Boot</td>
+<td style="text-align:left">快速启动</td>
+</tr>
+<tr>
+<td style="text-align:left">CFG Lock (MSR 0xE2 write protection)</td>
+<td style="text-align:left">CFG 锁 (MSR 0xE2 写入保护)</td>
+</tr>
+<tr>
+<td style="text-align:left">vt-d</td>
+<td style="text-align:left">vt-d</td>
+</tr>
+</tbody>
+</table>
+<p>启用如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">英文</th>
+<th style="text-align:left">中文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Above 4G decoding</td>
+<td style="text-align:left">大于 4G 地址空间解码</td>
+</tr>
+<tr>
+<td style="text-align:left">CSM</td>
+<td style="text-align:left">兼容性支持模块</td>
+</tr>
+<tr>
+<td style="text-align:left">IGPU</td>
+<td style="text-align:left">IGPU多监视器</td>
+</tr>
+<tr>
+<td style="text-align:left">XHCI Hand-off</td>
+<td style="text-align:left">XHCI Hand-off</td>
+</tr>
+</tbody>
+</table>
+<p>注意 关于CSM看网上教程都说要关闭它，但是我关闭了之后有一定概率引导失败，所以就把它打开了</p>
+<h2 id="引导盘制作"><a href="#引导盘制作" class="headerlink" title="引导盘制作"></a>引导盘制作</h2><p>下载<a href="https://github.com/corpnewt/gibMacOS" target="_blank" rel="noopener">gibMacOS</a></p>
+<h3 id="下载恢复镜像"><a href="#下载恢复镜像" class="headerlink" title="下载恢复镜像"></a>下载恢复镜像</h3><p>win下运行<code>gibMacOS.bat</code>， mac下运行<code>gibMacOS.command</code>, mac下如果遇到权限问题，需要先执行一下下面命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /Users/alan/Downloads/gibMacOS-master/gibMacOS.command</span><br></pre></td></tr></table></figure></p>
+<p>此时会展示一个列表<br><img src="https://alan-picpack.oss-cn-hangzhou.aliyuncs.com/uPic/20210420/20210420111333@2x.png" alt="20210420111333@2x"><br>按<code>r</code>回车进入恢复模式<br>然后输入需要下载的制定版本的恢复镜像序号并回车完成下载。（需要选择后面带FULL Install的）<br>下载完成之后关闭窗口即可。</p>
+<h3 id="制作U盘"><a href="#制作U盘" class="headerlink" title="制作U盘"></a>制作U盘</h3><p>win下运行<code>MakeInstall.bat</code>，mac下运行<code>BuildmacOSInstallApp.command</code><br>此时会列出当前连接的USB，输入前面的序号+O（如：1O）并回车完成OpenCore的安装。<br>选择y继续<br>输入上一步的恢复镜像的文件地址，回车开始制作。</p>
+<h2 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h2><h3 id="删除所有分区"><a href="#删除所有分区" class="headerlink" title="删除所有分区"></a>删除所有分区</h3><p>进入PE打开磁盘工具<br>删除所有分区并保存更改</p>
+<h3 id="格式化硬盘"><a href="#格式化硬盘" class="headerlink" title="格式化硬盘"></a>格式化硬盘</h3><p>进入MAC磁盘工具<br>点抹掉，选择APFS，名称随意(MacOS)<br>然后开始安装系统。</p>
+<h2 id="config-plist"><a href="#config-plist" class="headerlink" title="config.plist"></a>config.plist</h2><h3 id="ACPI"><a href="#ACPI" class="headerlink" title="ACPI"></a>ACPI</h3><h4 id="ACPI—–Add"><a href="#ACPI—–Add" class="headerlink" title="ACPI—–Add"></a>ACPI—–Add</h4><p>根据ACPI目录下所用的SSDT填写</p>
+<h4 id="ACPI—–Block"><a href="#ACPI—–Block" class="headerlink" title="ACPI—–Block"></a>ACPI—–Block</h4><p>不用填</p>
+<h4 id="ACPI—–Patch"><a href="#ACPI—–Patch" class="headerlink" title="ACPI—–Patch"></a>ACPI—–Patch</h4><p>一些热补丁</p>
+<h4 id="ACPI—–Quirks"><a href="#ACPI—–Quirks" class="headerlink" title="ACPI—–Quirks"></a>ACPI—–Quirks</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FadtEnableReset</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">一些旧的主板需要对FADT进行标记来激活电脑的开机和关机功能，这里我们不许要启动它（如果你遇到关机变重启，可以打开试试，我们之后也会在nvram中将这个问题修复）</td>
+</tr>
+<tr>
+<td style="text-align:left">NormalizeHeaders</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">清理ACPI头，一些主板的ACPI表需要打开这个修复启动。但如果补丁点亮系统，请试试NO</td>
+</tr>
+<tr>
+<td style="text-align:left">RebaseRegions</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">换硬件、升级BIOS等对硬件的操作会对ACPI表产生影响，一般不需要打开，若发现卡PCI Configuraion Begin，请尝试打开</td>
+</tr>
+<tr>
+<td style="text-align:left">ResetHwSig</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">休眠相关项，台式机不需要</td>
+</tr>
+<tr>
+<td style="text-align:left">ResetLogoStatus</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重置登录状态</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Booter"><a href="#Booter" class="headerlink" title="Booter"></a>Booter</h3><p>内存相关选项设置。</p>
+<h4 id="Booter–MmioWhitelist"><a href="#Booter–MmioWhitelist" class="headerlink" title="Booter–MmioWhitelist"></a>Booter–MmioWhitelist</h4><p>默认的第一项是为Haswell芯片提供的内存寻址修复，如果此类芯片碰到内存相关问题，请开启它(enable选择yes)。<br>默认第二项是开机卡PCI Configuration这里。ACPI、PCI device同时释放到内存时发生0x1000内存地址被占用而卡在PCI Configration.如果碰到此类问题，请开启它。</p>
+<h4 id="Boot—Quirks"><a href="#Boot—Quirks" class="headerlink" title="Boot—Quirks"></a>Boot—Quirks</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AvoidRuntimeDefrag</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">修复UEFI运行时服务，例如日期，时间，NVRAM，电源控制等</td>
+</tr>
+<tr>
+<td style="text-align:left">DevirtualiseMmio</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">减少被盗的内存占用空间，扩展值的选项</td>
+</tr>
+<tr>
+<td style="text-align:left">DisableSingleUser</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">禁止单用户模式</td>
+</tr>
+<tr>
+<td style="text-align:left">DisableVariableWrite</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">非原生NVRAM主板需要模拟nvram.plist进而写入variable值，因此要禁止此项来防止其他程序对nvram进行写入, 如果你的主板支持原生nvram，请选择NO</td>
+</tr>
+<tr>
+<td style="text-align:left">DiscardHibernateMap</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重用原始的休眠内存映射</td>
+</tr>
+<tr>
+<td style="text-align:left">EnableSafeModeSlide</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">允许在安全模式下使用Slide 值</td>
+</tr>
+<tr>
+<td style="text-align:left">EnableWriteUnprotector</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">在执行期间从CR0寄存器中删除写保护</td>
+</tr>
+<tr>
+<td style="text-align:left">ForceExitBootServices</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">这个选项是让那些非常老旧的主板也能使用内存寻址</td>
+</tr>
+<tr>
+<td style="text-align:left">ProtectMemoryRegions</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">官方对此项目的解释与AvoidRuntimeDefrag类似，除非你明白这是什么，不然选择NO，其实我也不明白。</td>
+</tr>
+<tr>
+<td style="text-align:left">ProtectSecureBoot</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">fasle</td>
+<td style="text-align:left">保护uefi安全启动被写入</td>
+</tr>
+<tr>
+<td style="text-align:left">ProtectUefiServices</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">fasle</td>
+<td style="text-align:left">保护UEFI服务不被固件覆盖，主要与VM，Icelake和较新的Coffeelake系统有关， 一般Z490的主板需要</td>
+</tr>
+<tr>
+<td style="text-align:left">ProvideCustomSlide</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">如果Slide 值存在冲突，则此选项将强制macOS使用伪随机值。接收调试消息的人需要Only N/256 slide values are usable!</td>
+</tr>
+<tr>
+<td style="text-align:left">RebuildAppleMemoryMap</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">生成与macOS兼容的内存映射</td>
+</tr>
+<tr>
+<td style="text-align:left">SetupVirtualMap</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">将SetVirtualAddresses调用修复为虚拟地址，在Skylake和更高版本上不需要</td>
+</tr>
+<tr>
+<td style="text-align:left">SignalAppleOS</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">促使硬件始终启动macOS，主要是对带有dGPU的MacBook Pro有利，因为启动Windows不允许使用iGPU</td>
+</tr>
+<tr>
+<td style="text-align:left">SyncRuntimePermissions</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">修正硬件在注入内存时无法注入权限的问题</td>
+</tr>
+</tbody>
+</table>
+<h3 id="DeviceProperties"><a href="#DeviceProperties" class="headerlink" title="DeviceProperties"></a>DeviceProperties</h3><p>此项是用来注入你的设备的，主要是显卡和声卡两部分。</p>
+<h4 id="DeviceProperties–Add"><a href="#DeviceProperties–Add" class="headerlink" title="DeviceProperties–Add"></a>DeviceProperties–Add</h4><p>根据实际情况填写声卡和显卡的信息</p>
+<h4 id="DeviceProperties–Block"><a href="#DeviceProperties–Block" class="headerlink" title="DeviceProperties–Block"></a>DeviceProperties–Block</h4><p>这里是禁用一些设备的，我们按默认就行了，不需要任何修改。</p>
+<h3 id="Kernel"><a href="#Kernel" class="headerlink" title="Kernel"></a>Kernel</h3><p>这里是内核相关选项。</p>
+<h4 id="Kernel–Add"><a href="#Kernel–Add" class="headerlink" title="Kernel–Add"></a>Kernel–Add</h4><p>根据Kexts目录下的文件进行填写</p>
+<h4 id="Kernel–Block"><a href="#Kernel–Block" class="headerlink" title="Kernel–Block"></a>Kernel–Block</h4><p>不需要</p>
+<h4 id="Kernel–Emulate"><a href="#Kernel–Emulate" class="headerlink" title="Kernel–Emulate"></a>Kernel–Emulate</h4><p>此选项帮助Ivy Bridge 和一些不受支持的CPU加载电源管理的，所有选项按默认即可。</p>
+<h4 id="Kernel–Patch"><a href="#Kernel–Patch" class="headerlink" title="Kernel–Patch"></a>Kernel–Patch</h4><p>保持默认</p>
+<h4 id="Kernel–Quirks"><a href="#Kernel–Quirks" class="headerlink" title="Kernel–Quirks"></a>Kernel–Quirks</h4><p>内核相关的快捷选项</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AppleCpuPmCfgLock</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">仅当无法在BIOS中禁用CFG-Lock时才需要</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleXcpmCfgLock</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">仅当无法在BIOS中禁用CFG-Lock时才需要+1</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleXcpmExtraMsrs</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">禁用奔腾和许多Xeon等不受支持的CPU所需的多个MSR访问。</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleXcpmForceBoost</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">强制使用最大性能，仅建议在持续负载的设备或媒体计算机上启用。</td>
+</tr>
+<tr>
+<td style="text-align:left">CustomSMBIOSGuid</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">对UpdateSMBIOSMode自定义模式执行GUID修补。通常与戴尔笔记本电脑有关</td>
+</tr>
+<tr>
+<td style="text-align:left">DisableIoMapper</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">禁用vt-d，我们在BIOS里已经禁用vt-d了，这里我们选择NO就行了。</td>
+</tr>
+<tr>
+<td style="text-align:left">DisableRtcChecksum</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">越过两条rtc检查(0x58及0x59)</td>
+</tr>
+<tr>
+<td style="text-align:left">DummyPowerManagement</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">替代NullCpuPowerManagement.kext，如果你使用此补丁，请删除并选择yes。我们一般选择no。</td>
+</tr>
+<tr>
+<td style="text-align:left">ExternalDiskIcons</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">修复苹果系统把内部硬盘识别为外置硬盘时（黄色图标的硬盘）开启，我们一般选择NO。</td>
+</tr>
+<tr>
+<td style="text-align:left">IncreasePciBarSize</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">解决卡PCI configuration，如果碰到请选择yes, 我们选择no。</td>
+</tr>
+<tr>
+<td style="text-align:left">LapicKernelPanic</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">适用于HP笔记本的内核奔溃选项</td>
+</tr>
+<tr>
+<td style="text-align:left">PanicNoKextDump</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">防止kext出错打报告而让我们看不到真正的panic原因，这个随便选，我选择NO。</td>
+</tr>
+<tr>
+<td style="text-align:left">PowerTimeoutKernelPanic</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">10.15系统中存在一些设备自身的电源管理无法让系统进入睡眠而超时，导致内核奔溃，如果有这个问题请选择YES。</td>
+</tr>
+<tr>
+<td style="text-align:left">ThirdPartyDrives</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">开启Sata类SSD的trim功能，我没有sata类的ssd，我选择NO。</td>
+</tr>
+<tr>
+<td style="text-align:left">XhciPortLimit</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">解除15个端口限制</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h3><p>开机引导类的设置。</p>
+<h4 id="Misc–BlessOverride"><a href="#Misc–BlessOverride" class="headerlink" title="Misc–BlessOverride"></a>Misc–BlessOverride</h4><p>这个选项是帮助我们寻找一些不寻常的EFI位置的，除非你有这种情况，不然我们不需要填写任何东西。</p>
+<h4 id="Misc–Boot"><a href="#Misc–Boot" class="headerlink" title="Misc–Boot"></a>Misc–Boot</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ConsoleAttributes</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">开机选择界面的颜色</td>
+</tr>
+<tr>
+<td style="text-align:left">HibernateMode</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">None</td>
+<td style="text-align:left">检测休眠模式。</td>
+</tr>
+<tr>
+<td style="text-align:left">HideAuxiliary</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">在开机选择画面隐藏一些辅助项目，比如recovery盘，clean NVRAM等。一般我们选择NO。</td>
+</tr>
+<tr>
+<td style="text-align:left">HideSelf</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">YES</td>
+<td style="text-align:left">隐藏自身的EFI引导盘选项</td>
+</tr>
+<tr>
+<td style="text-align:left">PickerAttributes</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">用于设置自定义选择器属性，此处将不介绍</td>
+</tr>
+<tr>
+<td style="text-align:left">PickerAudioAssist</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">用于在选择器中启用VoiceOver之类的支持</td>
+</tr>
+<tr>
+<td style="text-align:left">PickerMode</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">Builtin</td>
+<td style="text-align:left">设置OpenCore使用内置的选择器</td>
+</tr>
+<tr>
+<td style="text-align:left">PollAppleHotKeys</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">允许您在引导过程中使用Apple的热键</td>
+</tr>
+<tr>
+<td style="text-align:left">ShowPicker</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">是否显示开机启动盘选项</td>
+</tr>
+<tr>
+<td style="text-align:left">TakeoffDelay</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">开机热键延时</td>
+</tr>
+<tr>
+<td style="text-align:left">Timeout</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">倒计时进入指定硬盘</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Misc–Debug"><a href="#Misc–Debug" class="headerlink" title="Misc–Debug"></a>Misc–Debug</h4><p>是否开启debug模式，这里我们暂时不需要，全部忽略过。</p>
+<h4 id="Misc–Entries"><a href="#Misc–Entries" class="headerlink" title="Misc–Entries"></a>Misc–Entries</h4><p>这里是帮助我们添加一些你希望的引导路径，不用修改。</p>
+<h4 id="Misc–Security"><a href="#Misc–Security" class="headerlink" title="Misc–Security"></a>Misc–Security</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AllowNvramReset</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">是否在开机引导项中加入重置nvram缓存功能的选项</td>
+</tr>
+<tr>
+<td style="text-align:left">AllowSetDefault</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">选择yes后即可在开机选择系统页面中通过Ctrl+enter键设置默认启动盘</td>
+</tr>
+<tr>
+<td style="text-align:left">AuthRestart</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">filevault相关项，选择NO。</td>
+</tr>
+<tr>
+<td style="text-align:left">BootProtect</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">None</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">ExposeSensitiveData</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">显示更多的调试信息</td>
+</tr>
+<tr>
+<td style="text-align:left">HaltLevel</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">2,147,483,648</td>
+<td style="text-align:left">按默认设置即可</td>
+</tr>
+<tr>
+<td style="text-align:left">ScanPolicy</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">11,470,595</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Vault</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">Optional</td>
+<td style="text-align:left">黑苹果的vault加密方式，我们不需要这个功能，填Optional</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Misc–Tools"><a href="#Misc–Tools" class="headerlink" title="Misc–Tools"></a>Misc–Tools</h4><p>这里是加入一些开机时候的工具的。</p>
+<h3 id="NVRAM"><a href="#NVRAM" class="headerlink" title="NVRAM"></a>NVRAM</h3><h4 id="NVRAM–Add"><a href="#NVRAM–Add" class="headerlink" title="NVRAM–Add"></a>NVRAM–Add</h4><p>4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DefaultBackgroundColor</td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left">00000000</td>
+<td style="text-align:left">默认开机背景色为黑色</td>
+</tr>
+<tr>
+<td style="text-align:left">UIScale</td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left">01</td>
+<td style="text-align:left">01为普通的UI显示模式，02为开启HIDPI的UI显示模式</td>
+</tr>
+</tbody>
+</table>
+<p>7C436110-AB2A-4BBB-A880-FE41995C9F82</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">boot-args</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">keepsyms=1 alcid=1 agdpmod=pikera</td>
+<td style="text-align:left">slide=1表示从第一组内存开始连续注入；darkwake=0代表一键唤醒机器并偏好设置中节能选项的小憩功能。如果你要用小憩功能请填8； -v是跑代码，在没装好稳定的黑果前我建议加上，方便定位错误，弄完后再删除-v</td>
+</tr>
+<tr>
+<td style="text-align:left">csr-active-config</td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left">00000000</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">prev-lang:kbd</td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left">7A682D48 616E733A 323532</td>
+</tr>
+</tbody>
+</table>
+<h4 id="NVRAM–Block"><a href="#NVRAM–Block" class="headerlink" title="NVRAM–Block"></a>NVRAM–Block</h4><p>禁用一些nvram变量，我们这里按默认设置不必理会。</p>
+<h4 id="NVRAM–LegacyEnable"><a href="#NVRAM–LegacyEnable" class="headerlink" title="NVRAM–LegacyEnable"></a>NVRAM–LegacyEnable</h4><p>如果你的主板不支持原生NVRAM，请一定要选择YES! 如果你的主板支持原生nvram的，填no。</p>
+<h4 id="NVRAM-LegacyOverwrite"><a href="#NVRAM-LegacyOverwrite" class="headerlink" title="NVRAM-LegacyOverwrite"></a>NVRAM-LegacyOverwrite</h4><p>对模拟nvram用户来说，将nvram.plist写入硬件，我认为不管是原生nvram还是模拟nvram，都选择no。</p>
+<h4 id="NVRAM-LegacySchema"><a href="#NVRAM-LegacySchema" class="headerlink" title="NVRAM-LegacySchema"></a>NVRAM-LegacySchema</h4><p>nvram的变量设置</p>
+<h4 id="NVRAM-WriteFlash"><a href="#NVRAM-WriteFlash" class="headerlink" title="NVRAM-WriteFlash"></a>NVRAM-WriteFlash</h4><p>如果你的主板bios因为nvram导入垃圾内容，请关闭它，一般都是选择no。</p>
+<h3 id="PlatformInfo"><a href="#PlatformInfo" class="headerlink" title="PlatformInfo"></a>PlatformInfo</h3><p>机型信息</p>
+<h4 id="PlatformInfo–Automatic"><a href="#PlatformInfo–Automatic" class="headerlink" title="PlatformInfo–Automatic"></a>PlatformInfo–Automatic</h4><p>这里意思是是否自动填写系统信息。因为后面的很多选项都好繁琐，我们只要认真填几个选项就行了，这里我选YES，不重要的信息让它自动填。</p>
+<h4 id="PlatformInfo–Generic"><a href="#PlatformInfo–Generic" class="headerlink" title="PlatformInfo–Generic"></a>PlatformInfo–Generic</h4><p>填写三码信息</p>
+<h4 id="PlatformInfo–UpdateDataHub"><a href="#PlatformInfo–UpdateDataHub" class="headerlink" title="PlatformInfo–UpdateDataHub"></a>PlatformInfo–UpdateDataHub</h4><p>yes</p>
+<h4 id="PlatformInfo–UpdateNVRAM"><a href="#PlatformInfo–UpdateNVRAM" class="headerlink" title="PlatformInfo–UpdateNVRAM"></a>PlatformInfo–UpdateNVRAM</h4><p>yess</p>
+<h4 id="PlatformInfo–UpdateSMBIOS"><a href="#PlatformInfo–UpdateSMBIOS" class="headerlink" title="PlatformInfo–UpdateSMBIOS"></a>PlatformInfo–UpdateSMBIOS</h4><p>yes</p>
+<h4 id="PlatformInfo–UpdateSMBIOSMode"><a href="#PlatformInfo–UpdateSMBIOSMode" class="headerlink" title="PlatformInfo–UpdateSMBIOSMode"></a>PlatformInfo–UpdateSMBIOSMode</h4><p>Create</p>
+<h3 id="UEFI"><a href="#UEFI" class="headerlink" title="UEFI"></a>UEFI</h3><p>UEFI相关的设置。</p>
+<h4 id="UEFI–APFS"><a href="#UEFI–APFS" class="headerlink" title="UEFI–APFS"></a>UEFI–APFS</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">EnableJumpstart</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">从APFS容器中加载内置APFS驱动</td>
+</tr>
+<tr>
+<td style="text-align:left">HideVerbose</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">是否隐藏啰嗦模式，一般我们需要看日志的时候才开启</td>
+</tr>
+<tr>
+<td style="text-align:left">JumpstartHotPlug</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">是否加载APFS格式的热插设备</td>
+</tr>
+<tr>
+<td style="text-align:left">MinDate</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">加载最低发行的APFS格式</td>
+</tr>
+<tr>
+<td style="text-align:left">MinVersion</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">加载最低版本的APFS格式。填0代表从HIGH SIERRA开始加载。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="UEFI–Audio"><a href="#UEFI–Audio" class="headerlink" title="UEFI–Audio"></a>UEFI–Audio</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AudioSupport</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">False</td>
+<td style="text-align:left">是否开启黑苹果的开机提示音支持。如果你选择YES，后面的内容你必须认真看，不支持DP类的数字音频。</td>
+</tr>
+<tr>
+<td style="text-align:left">AudioCodec</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">填写音频声卡in节点</td>
+</tr>
+<tr>
+<td style="text-align:left">AudioDevice</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">PciRoot(0x0)/Pci(0x1b,0x0)</td>
+<td style="text-align:left">填写你声卡的路径</td>
+</tr>
+<tr>
+<td style="text-align:left">AudioOut</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">音频声卡out节点</td>
+</tr>
+<tr>
+<td style="text-align:left">MinimumVolume</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">20</td>
+<td style="text-align:left">声音音量</td>
+</tr>
+<tr>
+<td style="text-align:left">PlayChime</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">如果要使用开机duang声音</td>
+</tr>
+<tr>
+<td style="text-align:left">VolumeAmplifier</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">按照默认设置</td>
+</tr>
+</tbody>
+</table>
+<h4 id="UEFI–ConnectDrivers"><a href="#UEFI–ConnectDrivers" class="headerlink" title="UEFI–ConnectDrivers"></a>UEFI–ConnectDrivers</h4><p>是否加载补丁，我们选择YES</p>
+<h4 id="UEFI–Drivers"><a href="#UEFI–Drivers" class="headerlink" title="UEFI–Drivers"></a>UEFI–Drivers</h4><p>根据用的驱动填写</p>
+<h4 id="UEFI–Input"><a href="#UEFI–Input" class="headerlink" title="UEFI–Input"></a>UEFI–Input</h4><p>默认即可，无需修改</p>
+<h4 id="UEFI–Output"><a href="#UEFI–Output" class="headerlink" title="UEFI–Output"></a>UEFI–Output</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ClearScreenOnModeSwitch</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">消除开机时从图形模式转换到文本时出现残影的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">ConsoleMode</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">这里填主机的输出方式,留空即可</td>
+</tr>
+<tr>
+<td style="text-align:left">DirectGopCacheMode</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">此项请留空！</td>
+</tr>
+<tr>
+<td style="text-align:left">DirectGopRendering</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">是否使用内置显卡直接渲染开机画面，建议选择no</td>
+</tr>
+<tr>
+<td style="text-align:left">IgnoreTextInGraphics</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">修复在不使用-v跑马模式时候，开机日志导致的苹果logo显示不正确的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">ProvideConsoleGop</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">True</td>
+<td style="text-align:left">调用显卡gop</td>
+</tr>
+<tr>
+<td style="text-align:left">ReconnectOnResChange</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">一些固件在 GOP 分辨率改变后会重新连接显示器才能输出</td>
+</tr>
+<tr>
+<td style="text-align:left">ReplaceTabWithSpace</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">一些固件在UEFI Shell下TAB功能键不生效。开启这个会用空格键代替。</td>
+</tr>
+<tr>
+<td style="text-align:left">Resolution</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">Max</td>
+<td style="text-align:left">开机分辨率</td>
+</tr>
+<tr>
+<td style="text-align:left">SanitiseClearScreen</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">修复4k及以上显示器的输出问题</td>
+</tr>
+<tr>
+<td style="text-align:left">TextRenderer</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">BuiltinGraphics</td>
+<td style="text-align:left">OC开机代码字体渲染方式，我这里填BuiltinGraphics</td>
+</tr>
+</tbody>
+</table>
+<h4 id="UEFI–ProtocolOverrides"><a href="#UEFI–ProtocolOverrides" class="headerlink" title="UEFI–ProtocolOverrides"></a>UEFI–ProtocolOverrides</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AppleAudio</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">是否有开机DUANG的声音</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleBootPolicy</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">虚拟机的mac需要用的</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleDebugLog</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重新安装苹果错误日志界面</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleEvent</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">虚拟机并具有vault的mac需要用的</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleImageConversion</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重建apple图标</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleKeyMap</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重建苹果功能键</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleRtcRam</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重装applertc协议</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleSmcIo</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">代替之前的VirtualSMC.efi</td>
+</tr>
+<tr>
+<td style="text-align:left">AppleUserInterfaceTheme</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重新安装 Apple User Interface Theme 协议</td>
+</tr>
+<tr>
+<td style="text-align:left">DataHub</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">重建datahub</td>
+</tr>
+<tr>
+<td style="text-align:left">DeviceProperties</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">虚拟机或者老款的电脑需要选择YES才能注入device property</td>
+</tr>
+<tr>
+<td style="text-align:left">FirmwareVolume</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">VAULT相关项</td>
+</tr>
+<tr>
+<td style="text-align:left">HashServices</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">VAULT相关项</td>
+</tr>
+<tr>
+<td style="text-align:left">OSInfo</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">通知主板以及一些程序关于MAC引导的信息</td>
+</tr>
+<tr>
+<td style="text-align:left">UnicodeCollation</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">旧的主板需要</td>
+</tr>
+</tbody>
+</table>
+<h4 id="UEFI–Quirks"><a href="#UEFI–Quirks" class="headerlink" title="UEFI–Quirks"></a>UEFI–Quirks</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ExitBootServicesDelay</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">旧主板需要给予主板退出时间</td>
+</tr>
+<tr>
+<td style="text-align:left">IgnoreInvalidFlexRatio</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">如果你没有在bios中解锁MSR0x194，一定要选YES</td>
+</tr>
+<tr>
+<td style="text-align:left">ReleaseUsbOwnership</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">自动释放USB所有权的功能</td>
+</tr>
+<tr>
+<td style="text-align:left">RequestBootVarFallback</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">一些固件会主动扫描系统启动盘的位置而阻止OC扫描，如果碰到这样的问题选择YES，一般这个BUG在华硕的主板中比较常见。</td>
+</tr>
+<tr>
+<td style="text-align:left">RequestBootVarRouting</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">增加”启动磁盘” 的可靠性</td>
+</tr>
+<tr>
+<td style="text-align:left">UnblockFsConnect</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">惠普笔记本可能会让OC无法扫描到启动项，一般选择NO</td>
+</tr>
+</tbody>
+</table>
+<h4 id="UEFI–ReservedMemory"><a href="#UEFI–ReservedMemory" class="headerlink" title="UEFI–ReservedMemory"></a>UEFI–ReservedMemory</h4><p>空</p>
+<h2 id="挂载EFI分区"><a href="#挂载EFI分区" class="headerlink" title="挂载EFI分区"></a>挂载EFI分区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">diskutil list //使用diskutil list 查看磁盘分区情况</span><br><span class="line">diskutil mount disk1s1 //使用diskutil mount disk0s1 挂载disk1的EFI分区。</span><br></pre></td></tr></table></figure>
+<h2 id="Thank"><a href="#Thank" class="headerlink" title="Thank"></a>Thank</h2><ul>
+<li><a href="https://blog.xjn819.com/?p=543" target="_blank" rel="noopener">使用OpenCore引导黑苹果 by XJN</a></li>
+<li><a href="https://blog.daliansky.net/OpenCore-BootLoader.html" target="_blank" rel="noopener">精读OpenCore by 黑果小兵</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-github-alt"></i> 感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/瞎折腾/" rel="tag"><i class="fa fa-tag"></i> 瞎折腾</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/40517.html" rel="next" title="小程序架构">
+                <i class="fa fa-chevron-left"></i> 小程序架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/27737.html" rel="prev" title="Git进阶操作">
+                Git进阶操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+                <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Alan's Blog">
+            
+              <p class="site-author-name" itemprop="name">Alan's Blog</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，除了帅气与智慧什么都没有留下。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AlanLang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="langwdalan@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/langwdalan/?hl=en" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lucifer.ren/automate-everything/#/" title="我的第一本书" target="_blank">我的第一本书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hcysun.me/vue-design/zh/" title="渲染器" target="_blank">渲染器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hyf.js.org/react-naive-book/" title="React小书" target="_blank">React小书</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置清单"><span class="nav-number">1.</span> <span class="nav-text">配置清单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIOS设置"><span class="nav-number">2.</span> <span class="nav-text">BIOS设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引导盘制作"><span class="nav-number">3.</span> <span class="nav-text">引导盘制作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载恢复镜像"><span class="nav-number">3.1.</span> <span class="nav-text">下载恢复镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作U盘"><span class="nav-number">3.2.</span> <span class="nav-text">制作U盘</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬盘分区"><span class="nav-number">4.</span> <span class="nav-text">硬盘分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有分区"><span class="nav-number">4.1.</span> <span class="nav-text">删除所有分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化硬盘"><span class="nav-number">4.2.</span> <span class="nav-text">格式化硬盘</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#config-plist"><span class="nav-number">5.</span> <span class="nav-text">config.plist</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ACPI"><span class="nav-number">5.1.</span> <span class="nav-text">ACPI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ACPI—–Add"><span class="nav-number">5.1.1.</span> <span class="nav-text">ACPI—–Add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ACPI—–Block"><span class="nav-number">5.1.2.</span> <span class="nav-text">ACPI—–Block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ACPI—–Patch"><span class="nav-number">5.1.3.</span> <span class="nav-text">ACPI—–Patch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ACPI—–Quirks"><span class="nav-number">5.1.4.</span> <span class="nav-text">ACPI—–Quirks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Booter"><span class="nav-number">5.2.</span> <span class="nav-text">Booter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Booter–MmioWhitelist"><span class="nav-number">5.2.1.</span> <span class="nav-text">Booter–MmioWhitelist</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Boot—Quirks"><span class="nav-number">5.2.2.</span> <span class="nav-text">Boot—Quirks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeviceProperties"><span class="nav-number">5.3.</span> <span class="nav-text">DeviceProperties</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DeviceProperties–Add"><span class="nav-number">5.3.1.</span> <span class="nav-text">DeviceProperties–Add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeviceProperties–Block"><span class="nav-number">5.3.2.</span> <span class="nav-text">DeviceProperties–Block</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel"><span class="nav-number">5.4.</span> <span class="nav-text">Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel–Add"><span class="nav-number">5.4.1.</span> <span class="nav-text">Kernel–Add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel–Block"><span class="nav-number">5.4.2.</span> <span class="nav-text">Kernel–Block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel–Emulate"><span class="nav-number">5.4.3.</span> <span class="nav-text">Kernel–Emulate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel–Patch"><span class="nav-number">5.4.4.</span> <span class="nav-text">Kernel–Patch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel–Quirks"><span class="nav-number">5.4.5.</span> <span class="nav-text">Kernel–Quirks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misc"><span class="nav-number">5.5.</span> <span class="nav-text">Misc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Misc–BlessOverride"><span class="nav-number">5.5.1.</span> <span class="nav-text">Misc–BlessOverride</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Misc–Boot"><span class="nav-number">5.5.2.</span> <span class="nav-text">Misc–Boot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Misc–Debug"><span class="nav-number">5.5.3.</span> <span class="nav-text">Misc–Debug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Misc–Entries"><span class="nav-number">5.5.4.</span> <span class="nav-text">Misc–Entries</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Misc–Security"><span class="nav-number">5.5.5.</span> <span class="nav-text">Misc–Security</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Misc–Tools"><span class="nav-number">5.5.6.</span> <span class="nav-text">Misc–Tools</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NVRAM"><span class="nav-number">5.6.</span> <span class="nav-text">NVRAM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NVRAM–Add"><span class="nav-number">5.6.1.</span> <span class="nav-text">NVRAM–Add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NVRAM–Block"><span class="nav-number">5.6.2.</span> <span class="nav-text">NVRAM–Block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NVRAM–LegacyEnable"><span class="nav-number">5.6.3.</span> <span class="nav-text">NVRAM–LegacyEnable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NVRAM-LegacyOverwrite"><span class="nav-number">5.6.4.</span> <span class="nav-text">NVRAM-LegacyOverwrite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NVRAM-LegacySchema"><span class="nav-number">5.6.5.</span> <span class="nav-text">NVRAM-LegacySchema</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NVRAM-WriteFlash"><span class="nav-number">5.6.6.</span> <span class="nav-text">NVRAM-WriteFlash</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PlatformInfo"><span class="nav-number">5.7.</span> <span class="nav-text">PlatformInfo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PlatformInfo–Automatic"><span class="nav-number">5.7.1.</span> <span class="nav-text">PlatformInfo–Automatic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PlatformInfo–Generic"><span class="nav-number">5.7.2.</span> <span class="nav-text">PlatformInfo–Generic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PlatformInfo–UpdateDataHub"><span class="nav-number">5.7.3.</span> <span class="nav-text">PlatformInfo–UpdateDataHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PlatformInfo–UpdateNVRAM"><span class="nav-number">5.7.4.</span> <span class="nav-text">PlatformInfo–UpdateNVRAM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PlatformInfo–UpdateSMBIOS"><span class="nav-number">5.7.5.</span> <span class="nav-text">PlatformInfo–UpdateSMBIOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PlatformInfo–UpdateSMBIOSMode"><span class="nav-number">5.7.6.</span> <span class="nav-text">PlatformInfo–UpdateSMBIOSMode</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UEFI"><span class="nav-number">5.8.</span> <span class="nav-text">UEFI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–APFS"><span class="nav-number">5.8.1.</span> <span class="nav-text">UEFI–APFS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–Audio"><span class="nav-number">5.8.2.</span> <span class="nav-text">UEFI–Audio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–ConnectDrivers"><span class="nav-number">5.8.3.</span> <span class="nav-text">UEFI–ConnectDrivers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–Drivers"><span class="nav-number">5.8.4.</span> <span class="nav-text">UEFI–Drivers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–Input"><span class="nav-number">5.8.5.</span> <span class="nav-text">UEFI–Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–Output"><span class="nav-number">5.8.6.</span> <span class="nav-text">UEFI–Output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–ProtocolOverrides"><span class="nav-number">5.8.7.</span> <span class="nav-text">UEFI–ProtocolOverrides</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–Quirks"><span class="nav-number">5.8.8.</span> <span class="nav-text">UEFI–Quirks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI–ReservedMemory"><span class="nav-number">5.8.9.</span> <span class="nav-text">UEFI–ReservedMemory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挂载EFI分区"><span class="nav-number">6.</span> <span class="nav-text">挂载EFI分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thank"><span class="nav-number">7.</span> <span class="nav-text">Thank</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alan's Blog</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'alanlang',
+            repo: 'alanlang.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '8f43dc3c2fe8423e880a160aad9baaeb0b65aa97',
+            
+                client_id: '87fc2d6fd2ba0dd1ca40'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hibiki.model.json"},"display":{"position":"left","width":100,"height":230},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
